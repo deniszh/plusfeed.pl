@@ -6,17 +6,20 @@ NOT READY FOR PRODUCTION YET!!!!
 https://github.com/russellbeattie/plusfeed
 
 As time of writing Google not provide RSS feeds in Google+. There are many similar projects -
-https://github.com/russellbeattie/plusfeed - Python on GoogleAppengine, public installation was closed.
-https://github.com/tedkulp/gplusfeed - Node.js on Heroku, Heroku costs money.
+https://github.com/russellbeattie/plusfeed - Python on GoogleAppengine.
+https://github.com/tedkulp/gplusfeed - Node.js on Heroku.
 https://github.com/AntonTyutin/gp2rss - Node.js
 but I can't find anything on Perl, so, I write it by myself :)
+There is no public service for G+ RSS translation AFAIK - plusfeed was closed because of change prices on AppEngine,
+gplusfeed.heroku.com also not working. So, purpose of this project is to provide simple and reliable piece of code 
+for anyone who want to translate G+ posts to RSS 
 
 FILES
 
 PlusFeed.pm - main module
-plusfeed_simple.cgi - Simple cgi
-plusfeed_wcache.cgi - Simple cgi with caching
-plusfeed.psgi - PSGI interface (TODO)
+plusfeed_simple.cgi - Simple cgi (for personal use)
+plusfeed_wcache.cgi - Simple cgi with caching (for personal use)
+plusfeed.psgi - PSGI interface (TODO, public servise can be provided using this, but free G+ API key have 1000 req/day limit)
 
 INSTALLATION
 

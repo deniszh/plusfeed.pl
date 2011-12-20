@@ -151,7 +151,7 @@ sub get_rss_stream {
             $rss->add_item(
                 title       => $item->{title},
                 description => $body,
-                guid        => $object->{etag},
+                guid        => $item->{etag},
                 url         => $item->{url},
                 author      => $item->{actor}->{displayName},
                 date        => $item->{published},

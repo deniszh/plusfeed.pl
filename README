@@ -11,7 +11,8 @@ https://github.com/tedkulp/gplusfeed - Node.js on Heroku, Heroku costs money.
 https://github.com/AntonTyutin/gp2rss - Node.js
 but I can't find anything on Perl, so, I write it by myself :)
 
-Program consists couple of parts
+FILES
+
 PlusFeed.pm - main module
 plusfeed_simple.cgi - Simple cgi
 plusfeed_wcache.cgi - Simple cgi with caching
@@ -27,7 +28,7 @@ CHI + drivers ( if needed, for caching - see https://metacpan.org/module/CHI )
 Put appropriate CGI in cgi-bin and edit - 
 1. KEY - Provide own Google+ API key (https://code.google.com/apis/console/)
 2. USER - Google+ user id.
-3. PAGES - 0 - all pages, 1- last page, 2 - last 2 pages.
+3. PAGES - 0 - all pages, 1- last page, 2 - last 2 pages, etc.
 4. cache_ttl - caching time - if you need it (in seconds).
 
 Fancy PSGI interface and fancy HTML pages for CGI will be really soon

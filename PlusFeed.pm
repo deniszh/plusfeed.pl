@@ -57,6 +57,7 @@ sub set_api_key {
     my $self = shift;
     my $key = shift;
     $self->{_key} = $key;
+    $self->_initialize(key => $self->{_key}, user => $self->{_user}, pages => $self->{_pages}, cache => $self->{_cache}, cache_ttl => $self->{_cache_ttl});
 }
 
 sub get_user_id {
@@ -68,6 +69,7 @@ sub set_user_id {
     my $self = shift;
     my $user = shift;
     $self->{_user} = $user;
+    $self->_initialize(key => $self->{_key}, user => $self->{_user}, pages => $self->{_pages}, cache => $self->{_cache}, cache_ttl => $self->{_cache_ttl});
 }
 
 sub get_plus_object {
@@ -135,7 +137,15 @@ sub get_rss_stream {
                           . '<a href="'
                           . $att->{fullImage}->{url}
                           . '"><img src="';
-                        $body = $body . $att->{image}->{url} . "></a>";
+                        $body = $body . $att->{image}->{url} . '"></a>';
+                    }
+                    elsif ($att->{objectType} eq 'video') {
+                        $body = 
+                            $body
+                          . '<a href="'
+                          . $att->{url}
+                          . '"><img src="';
+                        $body = $body . $att->{image}->{url} . '"></a>';
                     }
                     else {
                         $body =

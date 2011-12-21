@@ -160,10 +160,10 @@ sub get_rss_stream {
             $body = $body . $item->{content};
             $rss->add_item(
                 title       => $item->{title},
-                description => '<html><body>'.$body.'</body></html>',
+                description => $body,
                 guid        => $item->{etag},
                 url         => $item->{url},
-                author      => '<dc:creator>'.$item->{actor}->{displayName}.'<dc:creator>',
+                author      => $item->{actor}->{displayName},
                 date        => $item->{published},
             );
         }

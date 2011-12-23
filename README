@@ -1,9 +1,11 @@
 plusfeed.pl
 
-NOT READY FOR PRODUCTION YET!!!!
+First public release
 
-(Not) port of python plusfeed (tool which translate public Google+ posts of particular user to RSS) 
+Port of python plusfeed (tool which translate public Google+ posts of particular user to RSS) 
 https://github.com/russellbeattie/plusfeed
+
+RATIONALE
 
 As time of writing Google not provide RSS feeds in Google+. There are many similar projects -
 https://github.com/russellbeattie/plusfeed - Python on GoogleAppengine.
@@ -19,19 +21,40 @@ FILES
 PlusFeed.pm - main module
 plusfeed_simple.cgi - Simple cgi (for personal use)
 plusfeed_wcache.cgi - Simple cgi with caching (for personal use)
-plusfeed.psgi - PSGI interface (TODO, public servise can be provided using this, but free G+ API key have 1000 req/day limit)
+app.psgi - PSGI interface (even public service can be provided using this, but free G+ API key have 1000 req/day limit)
 
 INSTALLATION
 
 Install dependencises - 
 Google::Plus
 XML::RSS
+
+For caching
 CHI + drivers ( if needed, for caching - see https://metacpan.org/module/CHI )
 
-Put appropriate CGI in cgi-bin and edit - 
-1. KEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+For PSGI application
+Plack 
+Path::Router
+Plack::App::Path::Router
+
+CGI
+
+Put appropriate CGI in cgi-bin folder on your hosting and edit - 
+1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
 2. USER - Google+ user id.
 3. PAGES - 0 - all pages, 1- last page, 2 - last 2 pages, etc.
 4. cache_ttl - caching time - if you need it (in seconds).
 
-Fancy PSGI interface and fancy HTML pages for CGI will be really soon
+PSGI
+
+Edit app.psgi
+1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+2. BASE_URL - Base URL of your application (http://yourhost:3000/)
+
+Run it like
+plackup -s HTTP::Server::PSGI --port 3000 --timeout 120 app.psgi
+
+Open http://yourhost:3000/ and follow instructions :)
+
+TODO
+Try deploy to Activestate Stackato

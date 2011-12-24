@@ -1,60 +1,92 @@
 plusfeed.pl
 
-First public release
+V0.03
 
-Port of python plusfeed (tool which translate public Google+ posts of particular user to RSS) 
-https://github.com/russellbeattie/plusfeed
+Port of Russell Beattie's Plusfeed https://github.com/russellbeattie/plusfeed
+(tool which translate public Google+ posts of particular user to Atom feed) 
 
 RATIONALE
 
-As time of writing Google not provide RSS feeds in Google+. There are many similar projects -
+As time of writing Google do not provides RSS/Atom feeds in Google+. 
+There are many similar projects -
 https://github.com/russellbeattie/plusfeed - Python on GoogleAppengine.
 https://github.com/tedkulp/gplusfeed - Node.js on Heroku.
 https://github.com/AntonTyutin/gp2rss - Node.js
 but I can't find anything on Perl, so, I write it by myself :)
-There is no public service for G+ RSS translation AFAIK - plusfeed was closed because of change prices on AppEngine,
-gplusfeed.heroku.com also not working. So, purpose of this project is to provide simple and reliable piece of code 
-for anyone who want to translate G+ posts to RSS 
+Also there is no public service for G+ RSS translation AFAIK - Russel's public 
+Plusfeed http://plusfeed.appspot.com was closed because of changing prices on AppEngine,
+Public instance of gplusfeed at http://gplusfeed.heroku.com also not working (at least for me). 
+So, purpose of this project is to provide simple and reliable piece of code for anyone 
+who want to translate G+ posts to RSS/Atom, until Google do not provide this 
 
 FILES
 
-PlusFeed.pm - main module
-plusfeed_simple.cgi - Simple cgi (for personal use)
-plusfeed_wcache.cgi - Simple cgi with caching (for personal use)
-app.psgi - PSGI interface (even public service can be provided using this, but free G+ API key have 1000 req/day limit)
+PlusFeed.pm - main module.
+PlusFeed/Atom.pm - module for Atom feed instead of RSS.
+plusfeed_simple.cgi - Simple cgi ( good for personal use )
+plusfeed_wcache.cgi - Advanced cgi ( with caching on Redis DB and Atom feed, also good for personal use)
+
+static/
+cache/
+app.psgi 
+requrements.txt
+stackato.yml
+- PSGI application with Atom feed and caching using files. 
+Even public service can be provided using this, but remember that free G+ API key have 1000 req/day limit.
+Also ready for run at ActiveState Stackato cloud (http://stackato.com)
+You can use my instance there - http://plusfeed.sandbox.activestate.com/
 
 INSTALLATION
 
-Install dependencises - 
+1. Simple CGI
+
+Requirements:
+- Perl 5.10 or newer
+- Perl modules (use CPAN for this)
 Google::Plus
 XML::RSS
+XML::Atom::SimpleFeed
+- Web server with CGI interface (Apache or lighhtpd)
 
-For caching
+Put plusfeed_simple.cgi to cgi-bin folder on your webserver and edit it
+1. APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
+2. USER - replace with your Google+ user id
+3. PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
+
+2. Advanced CGI
+
+Requrements:
+See p.1 plus
 CHI + drivers ( if needed, for caching - see https://metacpan.org/module/CHI )
 
-For PSGI application
-Plack 
+Put plusfeed_wcache.cgi in cgi-bin folder on your webserver and edit it 
+1. APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
+2. USER - replace with your Google+ user id
+3. PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
+4. cache_ttl - caching time - if you need it (in seconds).
+
+3. PSGI application at Stackato (http://stackato.com)
+Edit app.psgi
+1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+2. BASE_URL - Base URL of your application (http://<YOURAPPNAME>.sandbox.activestate.com/)
+See Stackato Quickstart for setup stackato - http://docs.stackato.com/quick-start.html#command-line-client
+Then
+stackato push YOURAPPNAME
+makes all magic. :)
+Really good thing, give it a try.
+
+4. PSGI application on your server
+Requrements:
+See p.1 plus 
+Task::Plack 
 Path::Router
 Plack::App::Path::Router
 
-CGI
-
-Put appropriate CGI in cgi-bin folder on your hosting and edit - 
-1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
-2. USER - Google+ user id.
-3. PAGES - 0 - all pages, 1- last page, 2 - last 2 pages, etc.
-4. cache_ttl - caching time - if you need it (in seconds).
-
-PSGI
-
 Edit app.psgi
 1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
-2. BASE_URL - Base URL of your application (http://yourhost:3000/)
+2. BASE_URL - Base URL of your application
 
 Run it like
-plackup -s HTTP::Server::PSGI --port 3000 --timeout 120 app.psgi
-
+starman app.psgi
 Open http://yourhost:3000/ and follow instructions :)
 
-TODO
-Try deploy to Activestate Stackato

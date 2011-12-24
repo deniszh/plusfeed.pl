@@ -49,9 +49,9 @@ XML::Atom::SimpleFeed
 - Web server with CGI interface (Apache or lighhtpd)
 
 Put plusfeed_simple.cgi to cgi-bin folder on your webserver and edit it
-1. APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
-2. USER - replace with your Google+ user id
-3. PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
+APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
+USER - replace with your Google+ user id
+PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
 
 2. Advanced CGI
 
@@ -60,15 +60,15 @@ See p.1 plus
 CHI + drivers ( if needed, for caching - see https://metacpan.org/module/CHI )
 
 Put plusfeed_wcache.cgi in cgi-bin folder on your webserver and edit it 
-1. APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
-2. USER - replace with your Google+ user id
-3. PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
-4. cache_ttl - caching time - if you need it (in seconds).
+APIKEY - replace with own Google+ API key (https://code.google.com/apis/console/)
+USER - replace with your Google+ user id
+PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
+cache_ttl - caching time - if you need it (in seconds, default is 300 sec = 5 min).
 
 3. PSGI application at Stackato (http://stackato.com)
 Edit app.psgi
-1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
-2. BASE_URL - Base URL of your application (http://<YOURAPPNAME>.sandbox.activestate.com/)
+APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+BASE_URL - Base URL of your application (http://<YOURAPPNAME>.sandbox.activestate.com/)
 See Stackato Quickstart for setup stackato - http://docs.stackato.com/quick-start.html#command-line-client
 Then
 stackato push YOURAPPNAME
@@ -83,10 +83,14 @@ Path::Router
 Plack::App::Path::Router
 
 Edit app.psgi
-1. APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
-2. BASE_URL - Base URL of your application
+APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+BASE_URL - Base URL of your application
 
 Run it like
 starman app.psgi
 Open http://yourhost:3000/ and follow instructions :)
+
+SUPPORT
+Feel free to drop me an email to denis.zhdanov@google.com or post issue 
+through https://github.com/deniszh/plusfeed.pl/issues
 

@@ -1,19 +1,19 @@
-#!/usr/bin/env plackup
+#!/usr/bin/env starman
 use Plack::App::Path::Router;
 use Plack::App::File;
 use Path::Router;
-use PlusFeed;
+use PlusFeed::Atom;
 use CHI;
-use CHI::Driver::Redis;
+use CHI::Driver::File;
 
 our $APIKEY   = 'APIKEY';
-our $BASE_URL = 'http://deniszh.org.ua:5000';
+our $BASE_URL = 'http://plusfeed.sandbox.activestate.com';
 
 my $cache = CHI->new(
-    driver    => 'Redis',
-    namespace => 'plusfeed',
-    server    => '127.0.0.1:6379',
-    debug     => 0
+    driver         => 'File',
+    root_dir       => './cache',
+    depth          => 3,
+    max_key_length => 64
 );
 my $router = Path::Router->new;
 
@@ -36,16 +36,16 @@ $router->add_route(
         # matches are passed to the target sub ...
         my ($request, $userid, $pages) = @_;
         if ($pages eq '') { $pages = 0; }
-        my $plus = PlusFeed->new(
+        my $plus = PlusFeed::Atom->new(
             key   => $APIKEY,
             user  => $userid,
             pages => $pages,
             cache => $cache
         );
-        my $rss_stream = $plus->get_rss_stream();
+        my $atom_stream = $plus->get_atom_stream();
         my $response   = $request->new_response(200);
         $response->content_type('text/xml');
-        $response->body($rss_stream);
+        $response->body($atom_stream);
     }
 );
 
@@ -73,7 +73,7 @@ our $homepage = <<"__HOMEPAGE__";
 								</h2>
 								<div id="inst">
 								<p>
-								Simply add a Google+ user number to the end of this site's URL to get an RSS feed of <em>public</em> posts.
+								Simply add a Google+ user number to the end of this site's URL to get an Atom feed of <em>public</em> posts.
 								</p>
 								<p>
 								Example: <a href="$BASE_URL/112714787808356482431">$BASE_URL/<strong>112714787808356482431/</strong></a>
@@ -89,10 +89,9 @@ our $homepage = <<"__HOMEPAGE__";
 								</div>
 						</div>
 				</div>
-				<!--
 				<script type="text/javascript">
 				  var _gaq = _gaq || [];
-				  _gaq.push(['_setAccount', 'UA-24604146-1']);
+				  _gaq.push(['_setAccount', 'UA-27925453-1']);
 				  _gaq.push(['_trackPageview']);
 				  (function() {
 						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -100,7 +99,6 @@ our $homepage = <<"__HOMEPAGE__";
 						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 				  })();
 				</script>
-				-->
 	     </body>
 </html>
 __HOMEPAGE__
@@ -110,6 +108,7 @@ my $app = Plack::App::Path::Router->new(router => $router);
 
 use Plack::Builder;
 builder {
+    enable 'Plack::Middleware::ContentLength';
     my $static = Plack::App::File->new(root => "./static");
     mount "/static"      => $static;
     mount "/favicon.ico" => $static;

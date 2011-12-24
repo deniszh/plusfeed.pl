@@ -1,0 +1,5 @@
+name: plusfeed
+framework:
+  type: perl
+mem: 64M
+instances: 1

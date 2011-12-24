@@ -92,6 +92,8 @@ our $homepage = <<"__HOMEPAGE__";
 				<script type="text/javascript">
 				  var _gaq = _gaq || [];
 				  _gaq.push(['_setAccount', 'UA-27925453-1']);
+				  _gaq.push(['_setDomainName', 'plusfeed.sandbox.activestate.com']);
+				  _gaq.push(['_setAllowLinker', true]);
 				  _gaq.push(['_trackPageview']);
 				  (function() {
 						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

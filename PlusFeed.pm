@@ -80,8 +80,8 @@ sub _make_body {
         }
     }
     if ($body) { $body = $body . "<br />"; }
-    $body = $body . '<a href="' . $object->{url} . '"';
-    $body = $body . $object->{content} . '"></a>';
+    $body = $body . $object->{content};
+    $body = $body . '&nbsp;<a href="' . $object->{url} . '">...</a>';
 
     return $body;
 }
@@ -228,4 +228,3 @@ sub get_cache_object {
 }
 
 1;
-

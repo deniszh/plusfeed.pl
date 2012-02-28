@@ -15,7 +15,7 @@ https://github.com/AntonTyutin/gp2rss - Node.js
 but I can't find anything on Perl, so, I write it by myself :)
 Also there is no public service for G+ RSS translation AFAIK - Russel's public 
 Plusfeed http://plusfeed.appspot.com was closed because of changing prices on AppEngine,
-Public instance of gplusfeed at http://gplusfeed.heroku.com also not working (at least for me). 
+Public instance of gplusfeed at http://gplusfeed.herokuapp.com also not working (at least for me). 
 So, purpose of this project is to provide simple and reliable piece of code for anyone 
 who want to translate G+ posts to RSS/Atom, until Google do not provide this 
 

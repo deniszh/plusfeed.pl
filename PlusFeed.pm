@@ -9,7 +9,7 @@ require 5.10.1;
 use XML::RSS;
 use utf8;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub new {
     my $class = shift;
@@ -40,7 +40,10 @@ sub _initialize {
     # cache - must be already initialized CHI object
     $self->{_cache_object} = $hash->{cache};
     $self->{_cache_ttl}    = $hash->{cache_ttl};
-    $self->{_cache_ttl} //= 300;    # default seconds
+    $self->{_cache_ttl}  //= 300;    # default seconds
+    
+    # if no_updates is true updates will be not translated (Atom only)
+    $self->{_no_updates}   = $hash->{no_updates};
 
     return 1;
 }

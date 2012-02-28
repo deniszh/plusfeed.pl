@@ -31,10 +31,11 @@ cache/
 app.psgi 
 requrements.txt
 stackato.yml
+Makefile.PL
 - PSGI application with Atom feed and caching using files. 
 Even public service can be provided using this, but remember that free G+ API key have 1000 req/day limit.
-Also ready for run at ActiveState Stackato cloud (http://stackato.com)
-You can use my instance there - http://plusfeed.sandbox.activestate.com/
+Also ready for run at Heroku (http://heroku.com) or ActiveState Stackato cloud (http://stackato.com)
+You can use my instance there - http://plusfeed-pl.herokuapp.com/
 
 INSTALLATION
 
@@ -65,7 +66,18 @@ USER - replace with your Google+ user id
 PAGES - replace with 0 for all pages, 1 - to get last page, 2 - last 2 pages, etc.
 cache_ttl - caching time - if you need it (in seconds, default is 300 sec = 5 min).
 
-3. PSGI application at Stackato (http://stackato.com)
+4. PSGI application at Heroku (http://heroku.com)
+  Edit app.psgi
+APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
+BASE_URL - Base URL of your application (http://<YOURAPPNAME>.herokuapp.com/)
+  Then run
+git init
+git add .
+git commit -m "Initial version"
+heroku create <YOURAPPNAME> -s cedar --buildpack https://github.com/miyagawa/heroku-buildpack-perl
+git push heroku master
+
+5. PSGI application at Stackato (http://stackato.com)
 Edit app.psgi
 APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
 BASE_URL - Base URL of your application (http://<YOURAPPNAME>.sandbox.activestate.com/)
@@ -75,18 +87,16 @@ stackato push YOURAPPNAME
 makes all magic. :)
 Really good thing, give it a try.
 
-4. PSGI application on your server
-Requrements:
+6. PSGI application on your server
+   Requrements:
 See p.1 plus 
 Task::Plack 
 Path::Router
 Plack::App::Path::Router
-
-Edit app.psgi
+   Edit app.psgi
 APIKEY - Provide own Google+ API key (https://code.google.com/apis/console/)
 BASE_URL - Base URL of your application
-
-Run it like
+   Run it like
 starman app.psgi
 Open http://yourhost:3000/ and follow instructions :)
 

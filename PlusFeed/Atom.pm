@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use parent qw( PlusFeed );
 
-our $VERSION = '0.01';
+our $VERSION = '0.03';
 
 use Carp;
 use Google::Plus;
@@ -48,6 +48,13 @@ sub get_rss_stream {
         my $next = $act->{nextPageToken};
         for my $item (@{$act->{items}}) {
             my $body = $self->_make_body($item);
+            my $updated;
+            warn "------------------------------------------------",$self->{_no_updates},"--";
+            if ($self->{_no_updates}) {
+        	$updated = $item->{published};
+    	    } else {
+        	$updated = $item->{updated};
+    	    }
             $rss->add_entry(
                 title     => $item->{title},
                 content   => $body,
@@ -55,6 +62,7 @@ sub get_rss_stream {
                 link      => $item->{url},
                 author    => $item->{actor}->{displayName},
                 published => $item->{published},
+                updated   => $updated,
             );
         }
         $act = $plus->activities($user, 'public', $next)

@@ -1,9 +1,0 @@
-setup.cfg
-./__init__.py
-./setup.py
-pip-egg-info/dotcloud.egg-info/PKG-INFO
-pip-egg-info/dotcloud.egg-info/SOURCES.txt
-pip-egg-info/dotcloud.egg-info/dependency_links.txt
-pip-egg-info/dotcloud.egg-info/not-zip-safe
-pip-egg-info/dotcloud.egg-info/requires.txt
-pip-egg-info/dotcloud.egg-info/top_level.txt

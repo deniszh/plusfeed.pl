@@ -1,6 +1,6 @@
 plusfeed.pl
 
-V0.03
+V0.05
 
 Port of Russell Beattie's Plusfeed https://github.com/russellbeattie/plusfeed
 (tool which translate public Google+ posts of particular user to Atom feed) 

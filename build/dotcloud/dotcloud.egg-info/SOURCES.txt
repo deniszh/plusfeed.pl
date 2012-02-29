@@ -1,0 +1,8 @@
+setup.py
+./__init__.py
+dotcloud.egg-info/PKG-INFO
+dotcloud.egg-info/SOURCES.txt
+dotcloud.egg-info/dependency_links.txt
+dotcloud.egg-info/not-zip-safe
+dotcloud.egg-info/requires.txt
+dotcloud.egg-info/top_level.txt

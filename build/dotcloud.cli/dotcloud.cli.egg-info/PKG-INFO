@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: dotcloud.cli
+Version: 0.4.3
+Summary: dotCloud command-line interface client
+Home-page: http://www.dotcloud.com/
+Author: dotCloud Inc.
+Author-email: support@dotcloud.com
+License: UNKNOWN
+Description: Using dotCloud, you can assemble your stack from pre-configured and heavily tested components. dotCloud supports major application servers, databases and message buses. 
+        The dotCloud CLI allows you to manage your software deployments on the dotCloud platform. To use this tool, you will need a dotCloud account. Register at http://www.dotcloud.com/ to get one!
+Platform: UNKNOWN

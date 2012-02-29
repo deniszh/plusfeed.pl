@@ -9,7 +9,7 @@ require 5.10.1;
 use XML::RSS;
 use utf8;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub new {
     my $class = shift;
@@ -42,9 +42,6 @@ sub _initialize {
     $self->{_cache_ttl}    = $hash->{cache_ttl};
     $self->{_cache_ttl}  //= 300;    # default seconds
     
-    # if no_updates is true updates will be not translated (Atom only)
-    $self->{_no_updates}   = $hash->{no_updates};
-
     return 1;
 }
 
@@ -145,7 +142,7 @@ sub get_rss_stream {
             $rss->add_item(
                 title       => $item->{title},
                 description => $body,
-                guid        => $item->{etag},
+                guid        => $item->{url},
                 url         => $item->{url},
                 author      => $item->{actor}->{displayName},
                 date        => $item->{published},
